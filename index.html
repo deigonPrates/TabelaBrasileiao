@@ -14,7 +14,8 @@
     </div>
 </div>
 <div id="app">
-    <input type="text" class="form-control" :value="gols">
+    <input type="text" class="form-control" :value="gols" @input="setValue($event)">
+    <button class="btn btn-primary" @click="showAlert()">Fim de Jogo</button>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.2/dist/vue.js"></script>
 <script>
@@ -22,6 +23,14 @@
         el: "#app",
         data:{
             gols: 3
+        },
+        methods:{
+            showAlert(){
+                alert("Fim de Jogo")
+            },
+            setValue($event){
+                console.log($event.data)
+            }
         }
     })
 </script>
