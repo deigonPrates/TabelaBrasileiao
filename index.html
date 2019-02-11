@@ -16,14 +16,26 @@
 <div id="app">
     <input type="text" class="form-control" v-model="gols">
     <button class="btn btn-primary" @click="showAlert()">Fim de Jogo</button>
-    {{gols}}
+    <div class="container">
+        <div class="row">
+            {{time.nome}}
+            <img :src="time.escudo">
+        </div>
+    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.2/dist/vue.js"></script>
 <script>
+    class Time{
+        constructor(nome,escudo){
+            this.nome = nome;
+            this.escudo = escudo;
+        }
+    }
     new Vue({
         el: "#app",
         data:{
-            gols: 3
+            gols: 3,
+            time: new Time("Corinthias", "assets/corinthians_60x60.png")
         },
         methods:{
             showAlert(){
