@@ -18,6 +18,27 @@
 </div>
 <div id="app">
     <div class="col-md-12">
+        <div class="row">
+            <div style="padding-left:2%;">
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-primary" @click="setNovoJogo">Novo Jogo</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <form class="form-inline">
+                    {{novoJogo.casa.time ? novoJogo.casa.time.nome: ''}}
+                    <input type="text" class="form-control col-md-1">
+                    <span>X</span>
+                    <input type="text" class="form-control  col-md-1">
+                    {{novoJogo.fora.time ? novoJogo.fora.time.nome: ''}}
+                    <button type="button" class="btn btn-danger">Fim de jogo</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
         <table class="table  table-bordered">
             <thead>
             <tr>
@@ -29,13 +50,13 @@
             </tr>
             </thead>
             <tbody>
-                <tr v-for="time in times">
-                    <th scope="row"><img :src="time.escudo"> {{time.nome}}</th>
-                    <td>{{time.pontos}}</td>
-                    <td>{{time.gm}}</td>
-                    <td>{{time.gs}}</td>
-                    <td> </td>
-                </tr>
+            <tr v-for="time in times">
+                <th scope="row"><img :src="time.escudo"> {{time.nome}}</th>
+                <td>{{time.pontos}}</td>
+                <td>{{time.gm}}</td>
+                <td>{{time.gs}}</td>
+                <td></td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -77,7 +98,17 @@
                 new Time('Vasco', 'assets/vasco_60x60.png'),
                 new Time('América-MG', 'assets/america_mg_60x60.png'),
                 new Time('Paraná', 'assets/parana_60x60.png'),
-            ]
+            ],
+            novoJogo: {
+                casa: {
+                    time: '',
+                    gols: 0
+                },
+                fora: {
+                    time: '',
+                    gols: 0
+                }
+            }
         },
         methods: {
             showAlert() {
@@ -85,6 +116,15 @@
             },
             setValue($event) {
                 console.log($event.data)
+            },
+            setNovoJogo() {
+                var indiceCasa = Math.floor(Math.random() * 20),
+                    indiceFora = Math.floor(Math.random() * 20);
+
+                this.novoJogo.casa.time = this.times[indiceCasa];
+                this.novoJogo.casa.gols = 0;
+                this.novoJogo.fora.time = this.times[indiceFora];
+                this.novoJogo.fora.gols = 0;
             }
         }
     })
