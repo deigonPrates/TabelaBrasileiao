@@ -57,11 +57,11 @@
                 </thead>
                 <tbody>
                 <tr v-for="time in times">
-                    <th scope="row"><img :src="time.escudo" class="img-logo"> {{time.nome}}</th>
+                    <th scope="row"><img :src="time.escudo" class="img-logo"> {{time.nome | ucWork}}</th>
                     <td>{{time.pontos}}</td>
                     <td>{{time.gm}}</td>
                     <td>{{time.gs}}</td>
-                    <td></td>
+                    <td>{{time | saldo}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -134,7 +134,7 @@
         data: {
             gols: 3,
             times: [
-                new Time('Palmeiras', 'assets/palmeiras_60x60.png'),
+                new Time('palmeiras', 'assets/palmeiras_60x60.png'),
                 new Time('Internacional', 'assets/internacional_60x60.png'),
                 new Time('Flamengo', 'assets/flamengo_60x60.png'),
                 new Time('Atlético-MG', 'assets/atletico_mg_60x60.png'),
@@ -192,6 +192,14 @@
                 var timeFora = this.novoJogo.fora.time;
                 timeCasa.fimJogo(timeFora, golsMarcados, golsSofridos);
                 this.show = 'tabela';
+            }
+        },
+        filters:{
+            ucWork(valor){
+                return valor.charAt(0).toUpperCase() + valor.slice(1);
+            },
+            saldo(time){
+                return time.gm - time.gs;
             }
         }
     })
